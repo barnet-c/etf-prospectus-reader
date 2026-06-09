@@ -202,6 +202,23 @@ Produce a document in this exact format:
 
 - [Anything the prospectus leaves vague or at Sponsor's discretion]
 - [Any steps where exact timing or party is unclear]
+
+---
+
+## Workflows to Build
+
+List every distinct workflow that should be created from this document. One row per workflow:
+
+| # | Workflow Name | Type | Flow Section |
+|---|---|---|---|
+| 1 | [ETF Name] - [Model] | Creation / Redemption | [section name] |
+| 2 | ... | | |
+
+Examples:
+- iShares Bitcoin ETF - Cash Creation
+- iShares Bitcoin ETF - In-Kind Redemption
+- Fidelity Bitcoin ETF - In-Kind Creation
+- Fidelity Bitcoin ETF - In-Kind Redemption
 ```
 
 ---
@@ -211,7 +228,8 @@ Produce a document in this exact format:
 - Use plain English throughout — no legal jargon
 - Only include parties and steps that are actually stated in the prospectus — do not assume
 - If the prospectus is ambiguous about a step, note it in the Ambiguities section rather than guessing
-- If there are multiple creation/redemption models described (e.g. both cash and in-kind options), produce a separate flow section for each
+- Produce a **separate flow section for every distinct model** described (e.g. cash creation, in-kind creation, cash redemption, in-kind redemption each get their own section)
+- Always include the **Workflows to Build** table at the end — one row per workflow that needs to be built
 - Save the document to a temp file using the Write tool — name it `<etf-name-slug>-process-flow.md` and save it to the system temp directory (use `$env:TEMP` on Windows or `/tmp` on Mac/Linux)
-- After saving, tell the user the full file path
-- After outputting the document, ask the user: **"Would you like me to now build this as an n8n workflow?"** — if yes, pass the document directly to the n8n-financial-workflow-builder skill
+- After saving, tell the user the file path and how many workflows were found
+- Then **automatically pass the document to the n8n-financial-workflow-builder skill** — do not ask, just proceed. Tell the user: "Building [N] workflows from this prospectus..."
